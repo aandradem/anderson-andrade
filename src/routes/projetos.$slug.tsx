@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CtaContato } from "@/components/CtaContato";
 import { projetos } from "@/data/portfolio";
 
 export const Route = createFileRoute("/projetos/$slug")({
@@ -108,13 +109,26 @@ function ProjetoDetalhe() {
               Visitar projeto
             </a>
           )}
+
+          {projeto.metricas && (
+            <dl className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3">
+              {projeto.metricas.map((m) => (
+                <div key={m.rotulo} className="bg-card px-6 py-6">
+                  <dt className="font-display text-2xl font-semibold text-primary">
+                    {m.valor}
+                  </dt>
+                  <dd className="mt-2 text-sm text-muted-foreground">{m.rotulo}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-4xl space-y-5 px-5 py-16">
         <div className="rounded-lg border border-border bg-card p-7">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-accent-foreground">
-            Desafio
+            O desafio
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
             {projeto.desafio}
@@ -123,7 +137,7 @@ function ProjetoDetalhe() {
 
         <div className="rounded-lg border border-border bg-card p-7">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-accent-foreground">
-            Condução do projeto
+            A solução — condução do projeto
           </h2>
           <ol className="mt-5 space-y-4">
             {projeto.solucao.map((s, i) => (
@@ -139,7 +153,7 @@ function ProjetoDetalhe() {
 
         <div className="grid gap-5 md:grid-cols-2">
           <Bloco titulo="Integrações" itens={projeto.integracoes} />
-          <Bloco titulo="Resultados" itens={projeto.resultados} />
+          <Bloco titulo="O resultado" itens={projeto.resultados} />
         </div>
 
         <ul className="flex flex-wrap gap-2 pt-2">
@@ -153,6 +167,8 @@ function ProjetoDetalhe() {
           ))}
         </ul>
       </section>
+
+      <CtaContato />
     </SiteLayout>
   );
 }
