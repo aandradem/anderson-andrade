@@ -1,20 +1,61 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, BadgeCheck, Quote } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { perfil, projetos, competencias } from "@/data/portfolio";
+import { CtaContato } from "@/components/CtaContato";
+import {
+  perfil,
+  projetos,
+  competencias,
+  certificacoes,
+  depoimentos,
+} from "@/data/portfolio";
 import curriculoPdf from "@/assets/curriculo.pdf.asset.json";
 
-const title = "Anderson Andrade — Especialista em Implantação e Projetos Digitais";
+const title =
+  "Anderson Andrade | Especialista em Implantação e Projetos Digitais & E-commerce";
 const description =
-  "Portfólio de Anderson Andrade: implantação de e-commerce (VTEX, Nuvemshop, Shopify), gestão de projetos digitais, integrações com ERPs, marketplaces e APIs.";
+  "Especialista em e-commerce, integrações e gestão de projetos digitais. Mais de 100 projetos conduzidos de ponta a ponta em VTEX, Nuvemshop e Shopify.";
+const ogTitle = "Anderson Andrade | Portfólio de Projetos Digitais";
+const ogDescription =
+  "Especialista em VTEX, migrações de plataforma e arquitetura de e-commerce.";
+const siteUrl = "https://anderson-andrade.lovable.app";
+const ogImage = `${siteUrl}/og-anderson-andrade.jpg`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
       { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
+      { property: "og:title", content: ogTitle },
+      { property: "og:description", content: ogDescription },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: siteUrl },
+      { property: "og:image", content: ogImage },
+      { name: "twitter:title", content: ogTitle },
+      { name: "twitter:description", content: ogDescription },
+      { name: "twitter:image", content: ogImage },
+    ],
+    links: [{ rel: "canonical", href: siteUrl }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: perfil.nome,
+          jobTitle: perfil.cargo,
+          email: `mailto:${perfil.email}`,
+          telephone: perfil.telefone,
+          url: siteUrl,
+          image: ogImage,
+          sameAs: [perfil.linkedin],
+          address: { "@type": "PostalAddress", addressLocality: perfil.cidade },
+          hasCredential: certificacoes.map((c) => ({
+            "@type": "EducationalOccupationalCredential",
+            name: c,
+          })),
+        }),
+      },
     ],
   }),
   component: Index,
