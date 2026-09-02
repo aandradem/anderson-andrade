@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CtaContato } from "@/components/CtaContato";
 import { projetos } from "@/data/portfolio";
 
 const title = "Projetos — Anderson Andrade";
@@ -78,6 +79,20 @@ function Projetos() {
               <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                 {p.resumo}
               </p>
+              {p.metricas && (
+                <ul className="mt-5 grid grid-cols-3 gap-3 border-t border-border pt-4">
+                  {p.metricas.map((m) => (
+                    <li key={m.rotulo}>
+                      <span className="block font-display text-lg font-semibold text-primary">
+                        {m.valor}
+                      </span>
+                      <span className="mt-1 block text-xs leading-snug text-muted-foreground">
+                        {m.rotulo}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <ul className="mt-5 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <li
@@ -96,6 +111,8 @@ function Projetos() {
           ))}
         </div>
       </section>
+
+      <CtaContato />
     </SiteLayout>
   );
 }
