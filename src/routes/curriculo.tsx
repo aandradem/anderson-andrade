@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
+import { CtaContato } from "@/components/CtaContato";
 import {
   perfil,
   experiencias,
@@ -138,6 +139,11 @@ function Curriculo() {
           ))}
         </div>
       </section>
+
+      <CtaContato
+        titulo="Quer conversar sobre uma vaga ou projeto?"
+        texto="Currículo em PDF disponível acima. Para falar diretamente comigo, escolha um dos canais abaixo."
+      />
     </SiteLayout>
   );
 }

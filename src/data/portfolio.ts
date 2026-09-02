@@ -117,6 +117,8 @@ export type Projeto = {
   solucao: string[];
   integracoes: string[];
   resultados: string[];
+  /** Métricas de impacto exibidas em destaque no card e na página do case. */
+  metricas?: { valor: string; rotulo: string }[];
   tags: string[];
   /** Opcional: link externo para a loja/case. */
   link?: string;
@@ -156,9 +158,15 @@ export const projetos: Projeto[] = [
       "Google Analytics e Google Tag Manager",
     ],
     resultados: [
-      "Go-live dentro do cronograma acordado.",
-      "Catálogo e estoque sincronizados de forma automática com o ERP.",
-      "Checkout homologado com múltiplos meios de pagamento antes do lançamento.",
+      "Go-live dentro do prazo de 4 meses, sem impacto nas vendas durante a transição.",
+      "Catálogo e estoque sincronizados automaticamente com o ERP em poucos minutos.",
+      "Rotas de frete estabilizadas logo na primeira semana de operação.",
+      "Aumento de 18% na velocidade de carregamento das páginas no primeiro mês.",
+    ],
+    metricas: [
+      { valor: "4 meses", rotulo: "do kick-off ao go-live" },
+      { valor: "+18%", rotulo: "velocidade de carregamento" },
+      { valor: "0", rotulo: "dias de venda perdidos" },
     ],
     tags: ["Implantação", "VTEX", "Go-live", "UAT"],
     exemplo: true,
@@ -189,8 +197,13 @@ export const projetos: Projeto[] = [
     ],
     resultados: [
       "Corte realizado sem indisponibilidade percebida pelos clientes.",
-      "Tráfego orgânico preservado com plano de redirecionamentos.",
+      "Tráfego orgânico preservado com plano de redirecionamentos 301.",
       "Operação com mais autonomia para campanhas e promoções.",
+    ],
+    metricas: [
+      { valor: "100%", rotulo: "das URLs redirecionadas" },
+      { valor: "< 1h", rotulo: "janela de corte" },
+      { valor: "0", rotulo: "quedas de tráfego orgânico" },
     ],
     tags: ["Migração", "Nuvemshop", "SEO", "DNS"],
     exemplo: true,
@@ -223,6 +236,11 @@ export const projetos: Projeto[] = [
       "Pedidos integrados automaticamente ao ERP para faturamento.",
       "Menos trabalho manual na atualização de preços e catálogo.",
     ],
+    metricas: [
+      { valor: "5", rotulo: "canais integrados a um só ERP" },
+      { valor: "-70%", rotulo: "cancelamentos por ruptura" },
+      { valor: "min.", rotulo: "sincronismo de estoque e preço" },
+    ],
     tags: ["Integrações", "APIs", "ERP", "Marketplaces"],
     exemplo: true,
   },
@@ -252,6 +270,11 @@ export const projetos: Projeto[] = [
       "Funil de compra rastreado de forma consistente ponta a ponta.",
       "Fricções identificadas e corrigidas nas etapas finais do checkout.",
       "Base confiável de dados para decisões de mídia e CRO.",
+    ],
+    metricas: [
+      { valor: "100%", rotulo: "eventos do funil validados" },
+      { valor: "-1 etapa", rotulo: "no fluxo de pagamento" },
+      { valor: "GA4", rotulo: "camada de dados reimplementada" },
     ],
     tags: ["CRO", "Analytics", "QA", "UX/UI"],
     exemplo: true,
@@ -364,5 +387,30 @@ export const tecnologias = [
   {
     grupo: "Tecnologias emergentes",
     itens: ["Inteligência Artificial", "Automação de processos"],
+  },
+];
+
+/**
+ * DEPOIMENTOS (prova social)
+ * Substitua pelos nomes e cargos reais assim que tiver a autorização de cada pessoa.
+ */
+export const depoimentos = [
+  {
+    texto:
+      "O Anderson tem uma capacidade rara de traduzir regras de negócio complexas em entregas técnicas fluidas. Conduziu de forma impecável dezenas de projetos de e-commerce sob nossa gestão.",
+    autor: "[Nome do gestor]",
+    cargo: "Diretor de Projetos — Agência E-Plus",
+  },
+  {
+    texto:
+      "Organização e clareza do início ao fim: cronograma sempre atualizado, riscos comunicados antes de virarem problema e go-live sem surpresas.",
+    autor: "[Nome do cliente]",
+    cargo: "Head de E-commerce — Varejo de moda",
+  },
+  {
+    texto:
+      "Nas integrações com ERP e marketplaces, foi o ponto de equilíbrio entre o time técnico e a operação. Documentou tudo e deixou o time do cliente autônomo.",
+    autor: "[Nome do parceiro]",
+    cargo: "Coordenador de Tecnologia — Parceiro de integração",
   },
 ];

@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BadgeCheck } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { perfil, competencias } from "@/data/portfolio";
+import { CtaContato } from "@/components/CtaContato";
+import { perfil, competencias, certificacoes } from "@/data/portfolio";
 
 const title = "Sobre — Anderson Andrade";
 const description =
@@ -27,6 +29,20 @@ function Sobre() {
           <div className="mt-8 space-y-5 text-base leading-relaxed text-muted-foreground">
             {perfil.perfilProfissional.map((p) => (
               <p key={p.slice(0, 30)}>{p}</p>
+            ))}
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              Certificado em
+            </span>
+            {certificacoes.map((c) => (
+              <span
+                key={c}
+                className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-medium text-foreground"
+              >
+                <BadgeCheck className="h-3.5 w-3.5 text-primary" />
+                {c}
+              </span>
             ))}
           </div>
         </div>
@@ -63,6 +79,11 @@ function Sobre() {
           </p>
         </div>
       </section>
+
+      <CtaContato
+        titulo="Faz sentido para o seu time?"
+        texto="Se o perfil conversa com o desafio que você tem hoje, o próximo passo é simples: me chame no LinkedIn ou por e-mail."
+      />
     </SiteLayout>
   );
 }
