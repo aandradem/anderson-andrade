@@ -9,8 +9,8 @@ type Props = {
 
 /** Bloco de fechamento com chamadas para ação — usado nas páginas internas. */
 export function CtaContato({
-  titulo = "Vamos conversar?",
-  texto = "Quer entender como apliquei essa mesma metodologia em projetos complexos? Escolha o canal mais prático.",
+  titulo = "Contato",
+  texto = "Para saber mais sobre este trabalho ou trocar uma ideia, estes são os canais diretos.",
 }: Props) {
   return (
     <section className="border-t border-border bg-surface/40">
@@ -26,13 +26,13 @@ export function CtaContato({
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
-            <Linkedin className="h-4 w-4" /> Conversar no LinkedIn
+            <Linkedin className="h-4 w-4" /> LinkedIn
           </a>
           <a
             href={`mailto:${perfil.email}`}
             className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
           >
-            <Mail className="h-4 w-4" /> Enviar e-mail
+            <Mail className="h-4 w-4" /> E-mail
           </a>
           <Link
             to="/contato"
