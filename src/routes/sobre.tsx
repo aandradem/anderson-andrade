@@ -81,8 +81,8 @@ function Sobre() {
       </section>
 
       <CtaContato
-        titulo="Faz sentido para o seu time?"
-        texto="Se o perfil conversa com o desafio que você tem hoje, o próximo passo é simples: me chame no LinkedIn ou por e-mail."
+        titulo="Contato"
+        texto="Se quiser saber mais sobre a minha trajetória, estes são os canais diretos."
       />
     </SiteLayout>
   );
