@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as CurriculoRouteImport } from './routes/curriculo'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
 
@@ -36,6 +38,16 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjetosIndexRoute = ProjetosIndexRouteImport.update({
   id: '/projetos/',
   path: '/projetos/',
@@ -52,7 +64,9 @@ export interface FileRoutesByFullPath {
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +74,9 @@ export interface FileRoutesByTo {
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/projetos': typeof ProjetosIndexRoute
 }
 export interface FileRoutesById {
@@ -69,7 +85,9 @@ export interface FileRoutesById {
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,18 +97,29 @@ export interface FileRouteTypes {
     | '/contato'
     | '/curriculo'
     | '/sobre'
+    | '/blog/$slug'
     | '/projetos/$slug'
+    | '/blog/'
     | '/projetos/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/contato' | '/curriculo' | '/sobre' | '/projetos/$slug' | '/projetos'
+    | '/'
+    | '/contato'
+    | '/curriculo'
+    | '/sobre'
+    | '/blog/$slug'
+    | '/projetos/$slug'
+    | '/blog'
+    | '/projetos'
   id:
     | '__root__'
     | '/'
     | '/contato'
     | '/curriculo'
     | '/sobre'
+    | '/blog/$slug'
     | '/projetos/$slug'
+    | '/blog/'
     | '/projetos/'
   fileRoutesById: FileRoutesById
 }
@@ -99,7 +128,9 @@ export interface RootRouteChildren {
   ContatoRoute: typeof ContatoRoute
   CurriculoRoute: typeof CurriculoRoute
   SobreRoute: typeof SobreRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   ProjetosSlugRoute: typeof ProjetosSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
 }
 
@@ -133,6 +164,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projetos/': {
       id: '/projetos/'
       path: '/projetos'
@@ -155,7 +200,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContatoRoute: ContatoRoute,
   CurriculoRoute: CurriculoRoute,
   SobreRoute: SobreRoute,
+  BlogSlugRoute: BlogSlugRoute,
   ProjetosSlugRoute: ProjetosSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -402,3 +402,64 @@ export type Depoimento = { texto: string; autor: string; cargo: string };
  * Para incluir: adicione blocos { texto, autor, cargo } com nomes autorizados.
  */
 export const depoimentos: Depoimento[] = [];
+
+export type Post = {
+  /** Usado na URL: /blog/<slug>. Letras minúsculas e hifens. */
+  slug: string;
+  titulo: string;
+  /** Data no formato AAAA-MM-DD. */
+  data: string;
+  /** Resumo curto exibido na lista. */
+  resumo: string;
+  tags: string[];
+  /** Cada item vira um parágrafo. Use "## Título" para criar subtítulos. */
+  conteudo: string[];
+  /** Marque como false quando for um artigo definitivo. */
+  exemplo?: boolean;
+};
+
+/**
+ * BLOG / ARTIGOS
+ * Para publicar: copie um bloco { ... } inteiro, cole no início da lista e
+ * troque os campos. A página do artigo é criada automaticamente.
+ */
+export const posts: Post[] = [
+  {
+    slug: "checklist-go-live-ecommerce",
+    titulo: "Checklist de go-live de e-commerce: o que eu valido antes de virar a chave",
+    data: "2026-08-20",
+    resumo:
+      "Os pontos que reviso em toda entrada em produção — catálogo, pagamento, frete, tracking e plano de contingência.",
+    tags: ["Go-live", "Implantação", "QA"],
+    conteudo: [
+      "Todo go-live parece igual até o dia em que algo simples passa despercebido. Por isso trabalho sempre com o mesmo roteiro de validação, adaptado ao porte do projeto.",
+      "## Catálogo e estoque",
+      "Confirmo a sincronia entre ERP e plataforma, checo produtos sem imagem, sem preço ou sem estoque e valido as categorias que aparecem no menu.",
+      "## Pagamento e frete",
+      "Testo cada meio de pagamento com transações reais de baixo valor, valido o antifraude e simulo cálculo de frete para CEPs de regiões diferentes.",
+      "## Tracking e analytics",
+      "Nada de subir sem os eventos do funil validados. Sem dado confiável, a operação fica cega nas primeiras semanas, justamente quando as decisões são mais importantes.",
+      "## Plano de contingência",
+      "Defino antes quem aciona o quê, qual o critério de rollback e como a operação comunica clientes em caso de instabilidade.",
+    ],
+    exemplo: true,
+  },
+  {
+    slug: "integracao-erp-sem-retrabalho",
+    titulo: "Integração com ERP sem retrabalho: definindo a fonte de verdade",
+    data: "2026-07-02",
+    resumo:
+      "A maioria dos problemas de integração não é técnica — é falta de acordo sobre quem manda em cada dado.",
+    tags: ["Integrações", "ERP", "APIs"],
+    conteudo: [
+      "Quando estoque e preço divergem entre canais, o time costuma procurar o erro na API. Na prática, o problema quase sempre começa antes: ninguém definiu qual sistema é a fonte de verdade de cada informação.",
+      "## Mapear antes de integrar",
+      "Listo cada dado — produto, preço, estoque, pedido, status — e defino qual sistema cria, qual atualiza e qual apenas consome.",
+      "## Combinar o tratamento de erro",
+      "Fila, reprocessamento e alerta precisam estar desenhados antes do primeiro teste, senão a operação descobre a falha pelo cliente.",
+      "## Homologar por cenário",
+      "Venda, cancelamento, troca, ruptura e reprecificação. Cada um desses casos revela uma regra que não estava escrita em lugar nenhum.",
+    ],
+    exemplo: true,
+  },
+];
