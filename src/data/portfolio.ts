@@ -394,23 +394,11 @@ export const tecnologias = [
  * DEPOIMENTOS (prova social)
  * Substitua pelos nomes e cargos reais assim que tiver a autorização de cada pessoa.
  */
-export const depoimentos = [
-  {
-    texto:
-      "O Anderson tem uma capacidade rara de traduzir regras de negócio complexas em entregas técnicas fluidas. Conduziu de forma impecável dezenas de projetos de e-commerce sob nossa gestão.",
-    autor: "[Nome do gestor]",
-    cargo: "Diretor de Projetos — Agência E-Plus",
-  },
-  {
-    texto:
-      "Organização e clareza do início ao fim: cronograma sempre atualizado, riscos comunicados antes de virarem problema e go-live sem surpresas.",
-    autor: "[Nome do cliente]",
-    cargo: "Head de E-commerce — Varejo de moda",
-  },
-  {
-    texto:
-      "Nas integrações com ERP e marketplaces, foi o ponto de equilíbrio entre o time técnico e a operação. Documentou tudo e deixou o time do cliente autônomo.",
-    autor: "[Nome do parceiro]",
-    cargo: "Coordenador de Tecnologia — Parceiro de integração",
-  },
-];
+export type Depoimento = { texto: string; autor: string; cargo: string };
+
+/**
+ * DEPOIMENTOS
+ * Vazio por padrão — a seção só aparece no site quando houver depoimentos reais.
+ * Para incluir: adicione blocos { texto, autor, cargo } com nomes autorizados.
+ */
+export const depoimentos: Depoimento[] = [];

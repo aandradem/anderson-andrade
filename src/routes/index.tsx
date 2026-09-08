@@ -201,32 +201,34 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 py-20">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          O que dizem sobre o meu trabalho
-        </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {depoimentos.map((d) => (
-            <figure
-              key={d.autor}
-              className="flex flex-col rounded-lg border border-border bg-card p-7"
-            >
-              <Quote className="h-5 w-5 text-primary" />
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-                “{d.texto}”
-              </blockquote>
-              <figcaption className="mt-6 text-sm">
-                <span className="block font-medium text-foreground">{d.autor}</span>
-                <span className="block text-xs text-muted-foreground">{d.cargo}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+      {depoimentos.length > 0 && (
+        <section className="mx-auto w-full max-w-6xl px-5 py-20">
+          <h2 className="text-2xl font-semibold md:text-3xl">
+            O que dizem sobre o meu trabalho
+          </h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {depoimentos.map((d) => (
+              <figure
+                key={d.autor}
+                className="flex flex-col rounded-lg border border-border bg-card p-7"
+              >
+                <Quote className="h-5 w-5 text-primary" />
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  “{d.texto}”
+                </blockquote>
+                <figcaption className="mt-6 text-sm">
+                  <span className="block font-medium text-foreground">{d.autor}</span>
+                  <span className="block text-xs text-muted-foreground">{d.cargo}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
       <CtaContato
-        titulo="Vamos conversar sobre o seu próximo projeto?"
-        texto="Disponível para projetos e oportunidades em implantação de e-commerce, gestão de projetos digitais e integrações de sistemas."
+        titulo="Contato"
+        texto="Fico à disposição para trocar ideias sobre projetos de e-commerce, implantação e integrações."
       />
     </SiteLayout>
   );
