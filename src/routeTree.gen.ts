@@ -17,6 +17,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
+import { Route as ApiPublicCurriculoRouteImport } from './routes/api/public/curriculo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
   path: '/projetos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCurriculoRoute = ApiPublicCurriculoRouteImport.update({
+  id: '/api/public/curriculo',
+  path: '/api/public/curriculo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/projetos': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/projetos/$slug'
     | '/blog/'
     | '/projetos/'
+    | '/api/public/curriculo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/projetos/$slug'
     | '/blog'
     | '/projetos'
+    | '/api/public/curriculo'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/projetos/$slug'
     | '/blog/'
     | '/projetos/'
+    | '/api/public/curriculo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ProjetosSlugRoute: typeof ProjetosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
+  ApiPublicCurriculoRoute: typeof ApiPublicCurriculoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjetosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/curriculo': {
+      id: '/api/public/curriculo'
+      path: '/api/public/curriculo'
+      fullPath: '/api/public/curriculo'
+      preLoaderRoute: typeof ApiPublicCurriculoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjetosSlugRoute: ProjetosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
+  ApiPublicCurriculoRoute: ApiPublicCurriculoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
