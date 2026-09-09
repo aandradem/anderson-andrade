@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { Database } from "@/integrations/supabase/types";
+import type { Database, Json } from "@/integrations/supabase/types";
 
 function publicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -23,10 +23,8 @@ function publicClient() {
 /** Leitura pública de todo o conteúdo editável do site. */
 export const getSiteContent = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await publicClient().from("site_content").select("key, value");
-  if (error) throw error;
-  const out: Record<string, unknown> = {};
-  for (const row of data ?? []) out[row.key] = row.value;
-  return out;
+  if (error) throw new Error(error.message);
+  return (data ?? []) as { key: string; value: Json }[];
 });
 
 /** Salva uma seção. Somente administradores. */
