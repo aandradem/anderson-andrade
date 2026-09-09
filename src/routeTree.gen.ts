@@ -10,17 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as CurriculoRouteImport } from './routes/curriculo'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
+import { Route as ApiPublicCurriculoRouteImport } from './routes/api/public/curriculo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -37,6 +50,11 @@ const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
@@ -58,73 +76,100 @@ const ProjetosSlugRoute = ProjetosSlugRouteImport.update({
   path: '/projetos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCurriculoRoute = ApiPublicCurriculoRouteImport.update({
+  id: '/api/public/curriculo',
+  path: '/api/public/curriculo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog': typeof BlogIndexRoute
   '/projetos': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contato': typeof ContatoRoute
   '/curriculo': typeof CurriculoRoute
   '/sobre': typeof SobreRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projetos/$slug': typeof ProjetosSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/projetos/': typeof ProjetosIndexRoute
+  '/api/public/curriculo': typeof ApiPublicCurriculoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/contato'
     | '/curriculo'
     | '/sobre'
+    | '/admin'
     | '/blog/$slug'
     | '/projetos/$slug'
     | '/blog/'
     | '/projetos/'
+    | '/api/public/curriculo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/contato'
     | '/curriculo'
     | '/sobre'
+    | '/admin'
     | '/blog/$slug'
     | '/projetos/$slug'
     | '/blog'
     | '/projetos'
+    | '/api/public/curriculo'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/contato'
     | '/curriculo'
     | '/sobre'
+    | '/_authenticated/admin'
     | '/blog/$slug'
     | '/projetos/$slug'
     | '/blog/'
     | '/projetos/'
+    | '/api/public/curriculo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ContatoRoute: typeof ContatoRoute
   CurriculoRoute: typeof CurriculoRoute
   SobreRoute: typeof SobreRoute
@@ -132,6 +177,7 @@ export interface RootRouteChildren {
   ProjetosSlugRoute: typeof ProjetosSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
+  ApiPublicCurriculoRoute: typeof ApiPublicCurriculoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +187,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -163,6 +223,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/blog/': {
       id: '/blog/'
@@ -192,11 +259,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjetosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/curriculo': {
+      id: '/api/public/curriculo'
+      path: '/api/public/curriculo'
+      fullPath: '/api/public/curriculo'
+      preLoaderRoute: typeof ApiPublicCurriculoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ContatoRoute: ContatoRoute,
   CurriculoRoute: CurriculoRoute,
   SobreRoute: SobreRoute,
@@ -204,6 +291,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjetosSlugRoute: ProjetosSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
+  ApiPublicCurriculoRoute: ApiPublicCurriculoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
