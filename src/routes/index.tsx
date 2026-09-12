@@ -2,13 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Download, BadgeCheck, Quote } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import {
-  perfil,
-  projetos,
-  competencias,
-  certificacoes,
-  depoimentos,
-} from "@/data/portfolio";
+import { perfil as perfilPadrao, certificacoes as certificacoesPadrao } from "@/data/portfolio";
+import { siteContentQuery, useSiteContent, urlCurriculo } from "@/lib/site-content";
 import curriculoPdf from "@/assets/curriculo.pdf.asset.json";
 
 const title =
@@ -42,15 +37,15 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
-          name: perfil.nome,
-          jobTitle: perfil.cargo,
-          email: `mailto:${perfil.email}`,
-          telephone: perfil.telefone,
+          name: perfilPadrao.nome,
+          jobTitle: perfilPadrao.cargo,
+          email: `mailto:${perfilPadrao.email}`,
+          telephone: perfilPadrao.telefone,
           url: siteUrl,
           image: ogImage,
-          sameAs: [perfil.linkedin],
-          address: { "@type": "PostalAddress", addressLocality: perfil.cidade },
-          hasCredential: certificacoes.map((c) => ({
+          sameAs: [perfilPadrao.linkedin],
+          address: { "@type": "PostalAddress", addressLocality: perfilPadrao.cidade },
+          hasCredential: certificacoesPadrao.map((c) => ({
             "@type": "EducationalOccupationalCredential",
             name: c,
           })),
@@ -58,10 +53,13 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Index,
 });
 
 function Index() {
+  const conteudo = useSiteContent();
+  const { perfil, projetos, competencias, certificacoes, depoimentos } = conteudo;
   const destaquesProjetos = projetos.slice(0, 3);
 
   return (
@@ -89,7 +87,7 @@ function Index() {
               Ver projetos <ArrowRight className="h-4 w-4" />
             </Link>
             <a
-              href={curriculoPdf.url}
+              href={urlCurriculo(conteudo, curriculoPdf.url)}
               download="Anderson-Andrade-Curriculo.pdf"
               className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
             >

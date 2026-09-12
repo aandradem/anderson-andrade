@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, Linkedin, MapPin } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { perfil } from "@/data/portfolio";
+import { siteContentQuery, useSiteContent } from "@/lib/site-content";
 
 const title = "Contato — Anderson Andrade";
 const description =
@@ -16,10 +16,12 @@ export const Route = createFileRoute("/contato")({
       { property: "og:description", content: description },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Contato,
 });
 
 function Contato() {
+  const { perfil } = useSiteContent();
   const canais = [
     {
       icone: Mail,

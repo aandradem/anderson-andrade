@@ -2,14 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import {
-  perfil,
-  experiencias,
-  formacao,
-  certificacoes,
-  formacaoComplementar,
-  tecnologias,
-} from "@/data/portfolio";
+import { siteContentQuery, useSiteContent, urlCurriculo } from "@/lib/site-content";
 import curriculoPdf from "@/assets/curriculo.pdf.asset.json";
 
 const title = "Currículo — Anderson Andrade";
@@ -25,10 +18,15 @@ export const Route = createFileRoute("/curriculo")({
       { property: "og:description", content: description },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Curriculo,
 });
 
 function Curriculo() {
+  const conteudo = useSiteContent();
+  const { perfil, experiencias, formacao, certificacoes, formacaoComplementar, tecnologias } =
+    conteudo;
+
   return (
     <SiteLayout>
       <section className="border-b border-border">
@@ -38,7 +36,7 @@ function Curriculo() {
             <p className="mt-4 max-w-xl text-muted-foreground">{perfil.cargo}</p>
           </div>
           <a
-            href={curriculoPdf.url}
+            href={urlCurriculo(conteudo, curriculoPdf.url)}
             download="Anderson-Andrade-Curriculo.pdf"
             className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
