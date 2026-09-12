@@ -1,4 +1,4 @@
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import {
   perfil as perfilPadrao,
   competencias as competenciasPadrao,
@@ -72,6 +72,12 @@ export const siteContentQuery = queryOptions({
 
 export function useSiteContent(): SiteContent {
   return useSuspenseQuery(siteContentQuery).data;
+}
+
+/** Conteúdo sem suspender: usado em layout/rodapé, com queda para os dados padrão. */
+export function useSiteContentSeguro(): SiteContent {
+  const { data } = useQuery(siteContentQuery);
+  return data ?? conteudoPadrao;
 }
 
 /** URL de download do currículo (PDF enviado pelo painel, se houver). */
