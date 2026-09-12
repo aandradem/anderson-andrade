@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
-import { posts } from "@/data/portfolio";
+import { siteContentQuery, useSiteContent } from "@/lib/site-content";
 
 const title = "Blog — Anderson Andrade";
 const description =
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/blog/")({
     ],
     links: [{ rel: "canonical", href: url }],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Blog,
 });
 
@@ -29,6 +30,7 @@ export function formatarData(data: string) {
 }
 
 function Blog() {
+  const { posts } = useSiteContent();
   const ordenados = [...posts].sort((a, b) => b.data.localeCompare(a.data));
 
   return (

@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import { projetos } from "@/data/portfolio";
+import { siteContentQuery, useSiteContent } from "@/lib/site-content";
 
 const title = "Projetos — Anderson Andrade";
 const description =
@@ -18,13 +18,15 @@ export const Route = createFileRoute("/projetos/")({
       { property: "og:description", content: description },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Projetos,
 });
 
 function Projetos() {
+  const { projetos } = useSiteContent();
   const plataformas = useMemo(
     () => ["Todas", ...Array.from(new Set(projetos.map((p) => p.plataforma)))],
-    [],
+    [projetos],
   );
   const [filtro, setFiltro] = useState("Todas");
   const lista = projetos.filter((p) => filtro === "Todas" || p.plataforma === filtro);

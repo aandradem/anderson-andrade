@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
-import { perfil } from "@/data/portfolio";
+import { useSiteContentSeguro } from "@/lib/site-content";
 
 const nav = [
   { to: "/", label: "Início" },
@@ -33,6 +33,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { perfil } = useSiteContentSeguro();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -80,6 +81,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             >
               LinkedIn
             </a>
+            <Link className="hover:text-foreground" to="/admin">
+              Administração
+            </Link>
           </div>
         </div>
       </footer>

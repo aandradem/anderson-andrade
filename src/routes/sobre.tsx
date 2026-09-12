@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BadgeCheck } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import { perfil, competencias, certificacoes } from "@/data/portfolio";
+import { siteContentQuery, useSiteContent } from "@/lib/site-content";
 
 const title = "Sobre — Anderson Andrade";
 const description =
@@ -17,10 +17,13 @@ export const Route = createFileRoute("/sobre")({
       { property: "og:description", content: description },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteContentQuery),
   component: Sobre,
 });
 
 function Sobre() {
+  const { perfil, competencias, certificacoes } = useSiteContent();
+
   return (
     <SiteLayout>
       <section className="border-b border-border">

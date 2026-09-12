@@ -2,11 +2,12 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import { projetos } from "@/data/portfolio";
+import { siteContentQuery } from "@/lib/site-content";
 
 export const Route = createFileRoute("/projetos/$slug")({
-  loader: ({ params }) => {
-    const projeto = projetos.find((p) => p.slug === params.slug);
+  loader: async ({ params, context }) => {
+    const conteudo = await context.queryClient.ensureQueryData(siteContentQuery);
+    const projeto = conteudo.projetos.find((p) => p.slug === params.slug);
     if (!projeto) throw notFound();
     return { projeto };
   },

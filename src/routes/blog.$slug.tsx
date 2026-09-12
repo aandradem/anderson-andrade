@@ -2,7 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CtaContato } from "@/components/CtaContato";
-import { posts, perfil } from "@/data/portfolio";
+import { perfil } from "@/data/portfolio";
+import { siteContentQuery } from "@/lib/site-content";
 
 const base = "https://anderson-andrade.lovable.app";
 
@@ -12,8 +13,9 @@ function formatarData(data: string) {
 }
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = posts.find((p) => p.slug === params.slug);
+  loader: async ({ params, context }) => {
+    const conteudo = await context.queryClient.ensureQueryData(siteContentQuery);
+    const post = conteudo.posts.find((p) => p.slug === params.slug);
     if (!post) throw notFound();
     return post;
   },
