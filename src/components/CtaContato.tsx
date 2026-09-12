@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Linkedin, Mail, ArrowRight } from "lucide-react";
-import { perfil } from "@/data/portfolio";
+import { useSiteContentSeguro } from "@/lib/site-content";
 
 type Props = {
   titulo?: string;
@@ -12,6 +12,8 @@ export function CtaContato({
   titulo = "Contato",
   texto = "Para saber mais sobre este trabalho ou trocar uma ideia, estes são os canais diretos.",
 }: Props) {
+  const { perfil } = useSiteContentSeguro();
+
   return (
     <section className="border-t border-border bg-surface/40">
       <div className="mx-auto w-full max-w-4xl px-5 py-16">
